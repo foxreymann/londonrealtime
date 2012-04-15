@@ -47,3 +47,6 @@ body {
 #voting > div > div {
     text-align:center;
 }
+#votingContainer {
+    display:none;
+}
