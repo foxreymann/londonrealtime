@@ -29,8 +29,8 @@
     <script src="sockjs.js"></script>      
     <script>
         $(function() {
+            var match = "PolandEngland"; // Gabriele: Put uniqe match id here
             var sock = new SockJS('http://ec2-46-137-149-7.eu-west-1.compute.amazonaws.com:3000/votes');
-            var match = "PolandEngland"; // Gabriele: Put match id here by PHP
             var connected = false;
 
             sock.onopen = function() {
