@@ -58,7 +58,7 @@ function matchSearch(match) {
         votesLeft: 0,
         votesRight: 0
     });
-    return matchSerach(match);
+    return matchSearch(match);
 }
 
 var clients = [];
