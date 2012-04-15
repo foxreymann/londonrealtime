@@ -1,0 +1,66 @@
+!!!
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="http://cdn.sockjs.org/sockjs-0.3.min.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+    script
+        function qs() {
+          var result = {}, queryString = location.search.substring(1),
+              re = /([^&=]+)=([^&]*)/g, m;
+
+          while (m = re.exec(queryString)) {
+            result[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+          }
+
+          return result;
+        }
+
+    script
+        var sock = new SockJS('http://' + location.hostname + (location.port ? ":" + location.port : "") + '/votes');
+        var connected = false;
+
+        sock.onopen = function() {
+            connected = true;
+            $('.error').html('Socket connected');
+
+            sock.send(JSON.stringify({type: 'start', side: 'left', match: qs().match}));
+            sock.send(JSON.stringify({type: 'start', side: 'right', match: qs().match}));
+            $('#match').html(qs().match);
+
+            $('#left').click(function() {
+                sendVotes('left');
+            });
+
+            $('#right').click(function() {
+                sendVotes('right');
+            });
+        };
+
+
+        sock.onmessage = function(e) {
+            console.log(e.data);
+            e = JSON.parse(e.data);
+            if (e.match === qs().match) {
+                if (e.type === 'vote') {
+                    $('#' + e.side).html(e.votes);
+                } else {
+                    $('.error').html(JSON.stringify(e));
+                }
+            } else {
+                console.log(e);
+            }
+        };
+
+        sock.onclose = function() {
+            connected = false;
+            $('.error').html('Socket disconnected');
+        };
+
+        function sendVotes(side) {
+            var vote = {type: 'vote', side: side, match: qs().match};
+            sock.send(JSON.stringify(vote));
+        }
+
+  body!= body

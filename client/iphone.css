@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    font-family: Helvetica;
+    background: #ccc;
+    color: #000000;
+    -webkit-text-size-adjust: none;
+}
+.middle{
+    vertical-align:middle;
+}
+#title, #voteTitle {
+  border:1px solid #ababab;
+  text-align: center;
+  padding:5px;
+  margin:10px;
+  -webkit-border-radius:5px;
+  background-color:#476a99;
+  color:#fff;
+  overflow: hidden;
+}
+#matchInfos, #voting{
+  border:1px solid #ababab;
+  padding:5px;
+  margin:10px;
+  -webkit-border-radius:5px;
+  background-color:#fff;
+}
+.leagueLogo {
+  text-align:center;
+  background-color:#fff;
+}
+/* VOTING */
+#voteLeft, #voteRight {
+    float:left;
+    width:50%;
+}
+#voting {
+    overflow: auto;
+}
+#voting button {
+    height:50px;
+    width:80%;
+    margin:10px 10%;
+    -webkit-border-radius:50%;
+    background-color:#ffcc00;
+}
+#voting > div > div {
+    text-align:center;
+}

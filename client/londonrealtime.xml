@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>            <rss version="2.0">                <channel>                    <title>London Real Time</title>                    <link></link>                    <description></description>                    <pubDate></pubDate>     
+               <item>
+              <title>Belchatow&#160;2&#160;-&#160;0&#160;Jagiellonia&#160;Bialystok</title>       
+
+
+         <link>http://www.codehaha.com/londonrealtime/mock.html</link>                <pubDate></pubDate>                <description>Final time (Ekstraklasa)</description>                <league>Ekstraklasa</league>           </item>    
+
+               <item>
+              <title>Web Socket Test</title>       
+
+
+         <link>http://websocket.org/echo.html</link>                <pubDate></pubDate>                <description>Final time (Ekstraklasa)</description>                <league>Ekstraklasa</league>           </item>    
+
+            </channel>            </rss>

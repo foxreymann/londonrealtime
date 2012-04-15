@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<meta http-equiv="refresh" content="20">
+<link rel="stylesheet" href="iphone.css" type="text/css" />
+<link rel="stylesheet" href="readMatch.css" type="text/css" />
+</head>
+<body>
+<div id="title">
+<b>Poland&#160;2&#160;-&#160;0&#160;England&#160;</b></div>
+<div id="matchInfos"><div ><img src='http://www.pita.it/soccer/resultsHtml/goal.png' class='middle'> 1'  M. Majkowski </div><div ><img src='http://www.pita.it/soccer/resultsHtml/goal.png' class='middle'> 7'  M. Majkowski </div><div ></div></div><div>
+
+
+    <div id="voteTitle">
+        Vote for winner!
+    </div>
+    <div id="voting">
+        <div id="voteLeft">
+            <button type="button" onclick="voteFor('teamLeft')">Poland</button>
+            <div><span>0</span> Votes</div>
+        </div>
+        <div id="voteRight">
+            <button type="button">England</button> 
+            <div><span>0</span> Votes</div>
+        </div>
+    </div>
+    <script src="jquery.js"></script>
+    <script src="sockjs.js"></script>      
+    <script>
+        var match = "PolandEngland";
+        var sock = new SockJS('http://ec2-46-137-149-7.eu-west-1.compute.amazonaws.com:3000/votes');
+        var connected = false;
+
+        sock.onopen = function() {
+            connected = true;
+            $('.error').html('Socket connected');
+
+            sock.send(JSON.stringify({type: 'start', side: 'left', match: qs().match}));
+            sock.send(JSON.stringify({type: 'start', side: 'right', match: qs().match}));
+            $('#match').html(qs().match);
+
+            $('#left').click(function() {
+                sendVotes('left');
+            });
+
+            $('#right').click(function() {
+                sendVotes('right');
+            });
+        };
+
+
+sock.onmessage = function(e) {
+    console.log(e.data);
+    e = JSON.parse(e.data);
+    if (e.match === qs().match) {
+        if (e.type === 'vote') {
+            $('#' + e.side).html(e.votes);
+        } else {
+            $('.error').html(JSON.stringify(e));
+        }
+    } else {
+        console.log(e);
+    }
+};
+
+sock.onclose = function() {
+    connected = false;
+    $('.error').html('Socket disconnected');
+};
+
+function sendVotes(side) {
+    var vote = {type: 'vote', side: side, match: qs().match};
+    sock.send(JSON.stringify(vote));
+}
+
+
+    
+/*        var voteFor = function(team) {
+           sendVote(matchId,team);
+            disableButtons();
+        }
+
+        var updateVotes = function(teamLeft,teamRight) {
+            $('#voteLeft span').html(teamLeft); 
+            $('#voteRight span').html(teamRight); 
+        }
+
+        var sendVote = function() {
+            
+        }
+
+        var disableButtons = function() {
+            $('button').attr('disabled','disabled');
+        }
+
+        $(function() {
+            updateVotes(3,11);
+        });*/
+    </script>
+
+
+        <div style="float:left;width:135px;height:40px;line-height:38px;background-color:#5F78AB;border-radius: 5px; -moz-border-radius: 5px;-webkit-border-radius: 5px; border: 1px solid #29447E;text-align:center;margin:10px;"><a style="font-weight:bold;margin-left:0px;color:#fff;text-decoration:none;" href="fb://publish/?text=Belchatow%202%20-%200%20Jagiellonia%20Bialystok http://bit.ly/zlTqii"><img style="vertical-align: middle;margin-right:10px;" src="http://www.pita.it/facebook.gif"> Share</a></div>
+        <div style="float:left;width:135px;height:40px;line-height:38px;background-color:#28B5E9;border-radius: 5px; -moz-border-radius: 5px;-webkit-border-radius: 5px; border: 1px solid #057ED0;text-align:center;margin:10px;"><a style="font-weight:bold;margin-left:0px;color:#fff;text-decoration:none;" href="twitter:///post?message=Belchatow%202%20-%200%20Jagiellonia%20Bialystok %23BelchatowJagielloniaBialystok http://bit.ly/zlTqii"><img src="http://www.pita.it/twitter.png" style="margin-right:10px;vertical-align: middle;"> Tweet</a></div>
+        </div><div style="clear:both;height:60px;"></div>
+
+</body>
+</html>
