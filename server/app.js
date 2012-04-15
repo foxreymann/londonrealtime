@@ -52,12 +52,12 @@ function matchSearch(match) {
             return matches[i]
         }
     }
-    matches[] = 
+    matches.push( 
     {
         match: match,
         votesLeft: 0,
         votesRight: 0
-    }
+    });
     return matchSerach(match);
 }
 
